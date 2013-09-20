@@ -790,13 +790,25 @@ function init(){
 		});
 	});
 }
+
+function onSubmit() {
+	$(this).replaceWith('I warned you! Wait...');
+	window.wikipath='//'+$('#p').val()+'.org/wiki/';
+	window.api='//'+$('#p').val()+'.org/w/api.php';
+	window.user=$('#u').val();
+	init();	
+}
+
 $(document).ready(function(){
 	$('#init').click(function(event){
 		event.preventDefault();
-		$(this).replaceWith('I warned you! Wait...');
-		window.wikipath='//'+$('#p').val()+'.org/wiki/';
-		window.api='//'+$('#p').val()+'.org/w/api.php';
-		window.user=$('#u').val();
-		init();
+		onSubmit();
 	});
+	
+	$('#p,#u').keypress( function( event ) {
+		if ( event.which == '13' ) {
+			event.preventDefault();
+			onSubmit();
+		}
+	} );
 });
